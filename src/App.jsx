@@ -19,6 +19,7 @@ import { useNoiseFeed } from "./hooks/useNoiseFeed";
 import { useRpmPmFeed } from "./hooks/useRpmPmFeed";
 
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+const base = import.meta.env.BASE_URL;
 
 export default function App() {
   const [selectedVin, setSelectedVin] = useState(vehicles?.[0] ?? "");
@@ -28,8 +29,8 @@ export default function App() {
 
   const [setIdx, setSetIdx] = useState(0);
   const currentSet = SETS[setIdx % SETS.length];
-  const engineImg = `/img/${currentSet.engineImg}`;
-  const hydImg    = `/img/${currentSet.hydImg}`;
+  const engineImg = `${base}/img/${currentSet.engineImg}`;
+  const hydImg    = `${base}/img/${currentSet.hydImg}`;
 
   const vibAxes = useVibFeed({ intervalMs: 5000, maxPoints: 20 });
   // √(x² + y² + z²) 계산해서 {ts, t, v}로 매핑
@@ -47,37 +48,37 @@ export default function App() {
 
   const pickDifferent = (pool, prevUrl) => {
     const prevName = (prevUrl || "").split("/").pop()?.split("?")[0];
-    if (pool.length <= 1) return `/img/${pool[0]}`;
+    if (pool.length <= 1) return `${base}/img/${pool[0]}`;
     let next = prevName;
     while (next === prevName) next = pick(pool);
-    return `/img/${next}`;
+    return `${base}/img/${next}`;
   };
 
   useEffect(() => {
-    const INTERVAL = 60000;
-    let intervalId = null;
-    let timeoutId = null;
+  const INTERVAL = 60000;
+  let intervalId = null;
+  let timeoutId = null;
 
-    // 1) 현재 시각으로 즉시 세트 설정 (정각 정렬)
-    const alignIndex = () => {
-      const slot = Math.floor(Date.now() / INTERVAL) % SETS.length;
-      setSetIdx(slot);
-    };
-    alignIndex();
+  // 1) 현재 시각으로 즉시 세트 설정 (정각 정렬)
+  const alignIndex = () => {
+    const slot = Math.floor(Date.now() / INTERVAL) % SETS.length;
+    setSetIdx(slot);
+  };
+  alignIndex();
 
-    // 2) 다음 정각까지 대기 → 이후 1분마다 갱신
-    const schedule = () => {
-      const msToNextMinute = INTERVAL - (Date.now() % INTERVAL);
-      timeoutId = setTimeout(() => {
-        alignIndex(); // 정각에 한 번 맞추고
-        intervalId = setInterval(() => {
-          setSetIdx((i) => {
-            const next = (i + 1) % SETS.length;
-            return next;
-          });
-        }, INTERVAL);
-      }, msToNextMinute);
-    };
+  // 2) 다음 정각까지 대기 → 이후 1분마다 갱신
+  const schedule = () => {
+    const msToNextMinute = INTERVAL - (Date.now() % INTERVAL);
+    timeoutId = setTimeout(() => {
+      alignIndex(); // 정각에 한 번 맞추고
+      intervalId = setInterval(() => {
+        setSetIdx((i) => {
+          const next = (i + 1) % SETS.length;
+          return next;
+        });
+      }, INTERVAL);
+    }, msToNextMinute);
+  };
   schedule();
 
   // 3) 탭 비활성화 시엔 중지, 활성화 시 재스케줄
