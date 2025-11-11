@@ -3,6 +3,8 @@ import { AppBar, Toolbar, Typography, Box, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 
+const base = import.meta.env.BASE_URL;
+
 export default function TopBar() {
   return (
     <AppBar position="static" elevation={0} sx={{ px: 2, bgcolor: "#0097CE" }}>
@@ -11,7 +13,7 @@ export default function TopBar() {
         <Box sx={{ width: "auto", height: 50, display: "flex", alignItems: "center", px: 1, borderRadius: 1 }}>
           <Box
             component="img"
-            src="/img/logo.png"
+            src={`${base}img/logo.png}`}
             alt="logo"
             sx={{ height: "100%", display: "block" }}
           />
