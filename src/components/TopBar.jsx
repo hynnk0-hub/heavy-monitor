@@ -13,7 +13,7 @@ export default function TopBar() {
         <Box sx={{ width: "auto", height: 50, display: "flex", alignItems: "center", px: 1, borderRadius: 1 }}>
           <Box
             component="img"
-            src={`${base}img/logo.png}`}
+            src={`${base}img/logo.png`}
             alt="logo"
             sx={{ height: "100%", display: "block" }}
           />
