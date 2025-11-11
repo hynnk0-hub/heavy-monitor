@@ -29,8 +29,8 @@ export default function App() {
 
   const [setIdx, setSetIdx] = useState(0);
   const currentSet = SETS[setIdx % SETS.length];
-  const engineImg = `${base}/img/${currentSet.engineImg}`;
-  const hydImg    = `${base}/img/${currentSet.hydImg}`;
+  const engineImg = `${base}img/${currentSet.engineImg}`;
+  const hydImg    = `${base}img/${currentSet.hydImg}`;
 
   const vibAxes = useVibFeed({ intervalMs: 5000, maxPoints: 20 });
   // √(x² + y² + z²) 계산해서 {ts, t, v}로 매핑
@@ -48,10 +48,10 @@ export default function App() {
 
   const pickDifferent = (pool, prevUrl) => {
     const prevName = (prevUrl || "").split("/").pop()?.split("?")[0];
-    if (pool.length <= 1) return `${base}/img/${pool[0]}`;
+    if (pool.length <= 1) return `${base}img/${pool[0]}`;
     let next = prevName;
     while (next === prevName) next = pick(pool);
-    return `${base}/img/${next}`;
+    return `${base}img/${next}`;
   };
 
   useEffect(() => {
