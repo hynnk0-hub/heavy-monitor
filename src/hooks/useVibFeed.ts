@@ -31,8 +31,8 @@ type Options = {
 };
 
 export function useVibFeed({
-  intervalMs = 5000,
-  maxPoints = 20,
+  intervalMs = 2000,
+  maxPoints = 40,
   seed = initVib,
 }: Options = {}) {
   const [data, setData] = useState<VibPoint[]>(seed);

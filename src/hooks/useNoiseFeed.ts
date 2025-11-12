@@ -12,7 +12,7 @@ function clock() {
 }
 
 // 초기 시드(대략 60~75dB 영역)
-function seedNoise(count = 20, intervalMs = 5000): NoisePoint[] {
+function seedNoise(count = 40, intervalMs = 2000): NoisePoint[] {
   const now = Date.now();
   const arr: NoisePoint[] = [];
   for (let i = count - 1; i >= 0; i--) {
@@ -30,7 +30,7 @@ type Options = {
   maxPoints?: number;
 };
 
-export function useNoiseFeed({ intervalMs = 5000, maxPoints = 20 }: Options = {}) {
+export function useNoiseFeed({ intervalMs = 500, maxPoints = 20 }: Options = {}) {
   const [data, setData] = useState<NoisePoint[]>(() => seedNoise(maxPoints, intervalMs));
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 

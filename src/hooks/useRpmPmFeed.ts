@@ -11,7 +11,7 @@ function clock() {
   return `${h}:${m}:${s}`;
 }
 
-function seedRpmPm(count = 30, intervalMs = 5000): RpmPmPoint[] {
+function seedRpmPm(count = 40, intervalMs = 2000): RpmPmPoint[] {
   const now = Date.now();
   const arr: RpmPmPoint[] = [];
   for (let i = count - 1; i >= 0; i--) {

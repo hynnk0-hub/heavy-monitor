@@ -180,8 +180,16 @@ export default function StatusRow({ data, onlyKeys, hotLimits }) {
             </Box>
 
             {/* 값 + 도트 */}
-            <Box sx={{ flex: 1, minWidth: 0, width: "100%" }}>
-              <Box sx={{ display: "grid", gap: 0.25, mt: 0.25 }}>
+            <Box sx={{
+                flex: 1,
+                minWidth: 0,
+                width: "100%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+                mt: 0.25,
+              }}>
+              <Box alignContent='end' sx={{ display: "grid", gap: 0.25, mt: 0.25, minHeight: 52 }}>
                 {values.map(({ text, dot }, i) => (
                   <Box
                     key={i}
@@ -220,6 +228,7 @@ export default function StatusRow({ data, onlyKeys, hotLimits }) {
                   </Box>
                 ))}
               </Box>
+              {values.length === 1 && <Box sx={{ flex: 1 }} />}
             </Box>
           </Paper>
         );

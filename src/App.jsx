@@ -32,8 +32,8 @@ export default function App() {
   const engineImg = `${base}img/${currentSet.engineImg}`;
   const hydImg    = `${base}img/${currentSet.hydImg}`;
 
-  const vibAxes = useVibFeed({ intervalMs: 5000, maxPoints: 20 });
-  // √(x² + y² + z²) 계산해서 {ts, t, v}로 매핑
+  const vibAxes = useVibFeed({ intervalMs: 2000, maxPoints: 20 });
+  // √(x² + y² + z²) 계산해서 {ts, t, v}로매핑
   const vibMag = useMemo(
     () =>
       vibAxes.map(p => ({
@@ -43,8 +43,8 @@ export default function App() {
       })),
     [vibAxes]
   );
-  const noiseTrend = useNoiseFeed({ intervalMs: 5000, maxPoints: 20 });
-  const rpmPmTrend = useRpmPmFeed({ intervalMs: 5000, maxPoints: 30 });
+  const noiseTrend = useNoiseFeed({ intervalMs: 2000, maxPoints: 20 });
+  const rpmPmTrend = useRpmPmFeed({ intervalMs: 2000, maxPoints: 30 });
 
   const pickDifferent = (pool, prevUrl) => {
     const prevName = (prevUrl || "").split("/").pop()?.split("?")[0];
