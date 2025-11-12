@@ -8,8 +8,12 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  ReferenceLine
 } from "recharts";
 import { useMemo } from "react";
+
+const dB_MIN = 95;
+const dB_MAX = 120;
 
 export function TrendLineCard({
   title,
@@ -107,6 +111,19 @@ export function TrendLineCard({
               labelFormatter={(label) => (hasTs ? new Date(label).toLocaleTimeString() : label)}
               formatter={(value, name) => [ typeof value === "number" ? `${value.toFixed(2)} dB(A)` : value, name]}
             />
+
+             <ReferenceLine
+                y={dB_MIN}
+                stroke="#FF0000"
+                strokeDasharray="6 6"
+                label={{ value: `LOW ${dB_MIN}`, position: 'insideTopLeft', fontSize: '14px', fill: '#FF0000'}}
+              />
+              <ReferenceLine
+                y={dB_MAX}
+                stroke="#FF0000"
+                strokeDasharray="6 6"
+                label={{ value: `LOW ${dB_MAX}`, position: 'insideBottomLeft', fontSize: '14px', fill: '#FF0000'}}
+              />
 
             <Area
               type="monotone"

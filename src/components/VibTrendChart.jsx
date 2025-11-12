@@ -8,8 +8,12 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+  ReferenceLine
 } from "recharts";
 import { useMemo } from "react";
+
+// const VIB_MIN = 1.3;
+// const VIB_MAX = 2.0;
 
 export function VibTrendChart({
   title,
@@ -109,6 +113,19 @@ export function VibTrendChart({
               labelFormatter={(label) => (hasTs ? new Date(label).toLocaleTimeString() : label)}
               formatter={(value, name) => [ typeof value === "number" ? `${value.toFixed(2)} m/s²` : value, name]}
             />
+
+             {/* <ReferenceLine
+                          y={VIB_MIN}
+                          stroke="#FF0000"
+                          strokeDasharray="6 6"
+                          // label={{ value: `LOW ${VIB_MIN}`, position: 'insideTopRight', fill: '#666'}}
+              />
+              <ReferenceLine
+                y={VIB_MAX}
+                stroke="#FF0000"
+                strokeDasharray="6 6"
+                // label={{ value: `LOW ${VIB_MAX}`, position: 'insideTopRight', fill: '#666'}}
+              /> */}
 
             <Area
               type="monotone"

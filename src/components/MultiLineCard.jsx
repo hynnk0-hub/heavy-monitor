@@ -1,7 +1,7 @@
 // src/components/MultiLineCard.jsx
 import CardShell from "./CardShell";
 import {
-  ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
+  ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine
 } from "recharts";
 
 /**
@@ -12,6 +12,10 @@ import {
  *        - 그릴 시리즈 목록 (예: [{key:'x', name:'X', color:'#1e88e5'}, ...])
  * @param {string|number} height - 차트 높이 (기본 "100%")
  */
+
+const VIB_MIN = 1.3;
+const VIB_MAX = 2.0;
+
 export function MultiLineCard({
   title = "멀티 라인 차트",
   data = [],
@@ -78,6 +82,18 @@ export function MultiLineCard({
             <Tooltip
               labelFormatter={(label) =>hasTs ? new Date(label).toLocaleTimeString() : label}
               formatter={(value, name) => [ typeof value === "number" ? `${value.toFixed(2)} g` : value, name]}
+            />
+            <ReferenceLine
+              y={VIB_MIN}
+              stroke="#FF0000"
+              strokeDasharray="6 6"
+              label={{ value: `LOW ${VIB_MIN}`, position: 'insideTopLeft', fontSize: '14px', fill: '#FF0000'}}
+              />
+            <ReferenceLine
+              y={VIB_MAX}
+              stroke="#FF0000"
+              strokeDasharray="6 6"
+              label={{ value: `LOW ${VIB_MAX}`, position: 'insideBottomLeft', fontSize: '14px', fill: '#FF0000'}}
             />
             <Legend />
             {series.map((s) => (

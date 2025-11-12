@@ -1,7 +1,10 @@
 import CardShell from "./CardShell";
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ReferenceLine } from "recharts";
 
-export function RpmPmCard({ title="RPM & 매연 트렌드 차트", data, rpmKey="rpm", pmKey="pm", height="100%", lineWidth=3, leftMin, leftMax, rightMin, rightMax, leftLabel="RPM", rightLabel="PM (ppm)", }) {
+const PPM_MIN = 21;
+const PPM_MAX = 30;
+
+export function RpmPmCard({ title="RPM & 매연 트렌드 차트", data, rpmKey="rpm", pmKey="pm", height="100%", lineWidth=3, leftMin, leftMax, rightMin, rightMax, leftLabel="RPM", rightLabel="PM (%vol)", }) {
   const hasTs = Array.isArray(data) && data.length > 0 && typeof data[data.length - 1]?.ts === "number";
   let domainMin, domainMax;
   if (hasTs) {
@@ -53,6 +56,20 @@ export function RpmPmCard({ title="RPM & 매연 트렌드 차트", data, rpmKey=
               labelFormatter={(label) => (hasTs ? new Date(label).toLocaleTimeString() : label)}
               formatter={(value, name) => [ typeof value === "number" ? value.toFixed(2) : value, name]}
             />
+            <ReferenceLine
+              y={PPM_MIN}
+              yAxisId="right"
+              stroke="#FF0000"
+              strokeDasharray="6 6"
+              label={{ value: `LOW ${PPM_MIN}`, position: 'insideTopLeft', fontSize: '14px', fill: '#FF0000'}}
+            />
+            <ReferenceLine
+              y={PPM_MAX}
+              yAxisId="right"
+              stroke="#FF0000"
+              strokeDasharray="6 6"
+              label={{ value: `LOW ${PPM_MAX}`, position: 'insideBottomLeft', fontSize: '14px', fill: '#FF0000'}}
+            />
             <Legend />
             <Line
               yAxisId="left"
@@ -68,7 +85,7 @@ export function RpmPmCard({ title="RPM & 매연 트렌드 차트", data, rpmKey=
               yAxisId="right"
               type="monotone"
               dataKey={pmKey}
-              name="매연 (ppm)"
+              name="매연 (%vol)"
               stroke="#8e24aa"
               strokeWidth={lineWidth}
               dot={true}

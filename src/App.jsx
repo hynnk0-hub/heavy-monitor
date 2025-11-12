@@ -239,7 +239,7 @@ export default function App() {
                   base="yMin"
                   seriesName="SPL"
                 />
-                <RpmPmCard data={rpmPmTrend} height="100%" lineWidth={2} leftMin={0} leftMax={1000} rightMin={0} rightMax={24} leftLabel="RPM" rightLabel="매연 (ppm)" />
+                <RpmPmCard data={rpmPmTrend} height="100%" lineWidth={2} leftMin={0} leftMax={1000} rightMin={0} rightMax={30} leftLabel="RPM" rightLabel="매연 (%vol)" />
               </Box>
             </Box>
           </Box>

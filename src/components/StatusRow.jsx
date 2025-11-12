@@ -118,7 +118,7 @@ export default function StatusRow({ data, onlyKeys, hotLimits }) {
       key: "pm",
       label: "매연",
       val: {
-        text: `${Number(data?.pm ?? 0).toFixed(2)} ppm`,
+        text: `${Number(data?.pm ?? 0).toFixed(2)} %vol`,
         dot: pmDot(data?.pm),
       },
     },
